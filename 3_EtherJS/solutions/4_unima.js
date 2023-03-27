@@ -53,9 +53,7 @@ const networkInfo = async () => {
 
 // a. Use the same non-sensitive private key used in 3_signer.js.
 
-
-const signer = new ethers.Wallet(process.env.METAMASK_1_PRIVATE_KEY,
-                                 notUniMaProvider);
+const signer = new ethers.Wallet(process.env.METAMASK_PRIVATE_KEY, notUniMaProvider);
 
 // b. Print the next nonce necessary to send a transaction.
 // Hint: .getNonce()
@@ -66,14 +64,19 @@ const getNonce = async() => {
     console.log('Your nonce is ' + nonce);
 };
 
-// getNonce();
+getNonce();
 
-// Checkpoint. Is the nonce in the (not) Unima blockchain different
-// than in Goerli?
+// // Checkpoint. Is the nonce in the (not) Unima blockchain different
+// // than in Goerli?
 
+// Yes nonce is different, started with 0 as no transactions yet
+// const providerKey = process.env.INFURA_KEY;
+// const goerliInfuraUrl = `${process.env.INFURA_GOERLI}${providerKey}`;
+// const goerliProvider = new ethers.JsonRpcProvider(goerliInfuraUrl);
+// const signer = new ethers.Wallet(process.env.METAMASK_PRIVATE_KEY, goerliProvider);
 
-// Exercise 4. Check gas.
-/////////////////////////
+// // Exercise 4. Check gas.
+// /////////////////////////
 
 // a. Let's get some gas from the faucet. What is the faucet's address? 
 // Check the slides in ILIAS.
@@ -88,12 +91,12 @@ const checkBalance = async () => {
     console.log('My balance is ' + ethers.formatEther(balance) + ' NUMETH.');
 };
 
-// checkBalance();
+checkBalance();
 
-// Exercise 5. Send a transaction.
-//////////////////////////////////
+// // Exercise 5. Send a transaction.
+// //////////////////////////////////
 
-// Send some Ether from one of your accounts to another one on NUMA.
+// // Send some Ether from one of your accounts to another one on NUMA.
 
 const account2 = process.env.METAMASK_2_ADDRESS;
 
@@ -125,7 +128,7 @@ const sendTransaction = async () => {
     console.log('Balance for', account2, 'changed from', b2, 'to', updatedB2);
 };
 
-// sendTransaction();
+sendTransaction();
 
 // Checkpoint. Can you send your ETH from NUMA to Goerli?
 
