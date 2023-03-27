@@ -16,6 +16,8 @@
 require('dotenv').config();
 const ethers = require("ethers");
 
+// process.exit(0)
+
 
 // Exercise 1. Connect to Mainnet (a.k.a welcome async!).
 /////////////////////////////////////////////////////////
@@ -49,14 +51,14 @@ const mainnetInfuraUrl = `${process.env.INFURA_MAINNET}${providerKey}`;
 // console.log(mainnetInfuraUrl);
 const mainnetProvider = new ethers.JsonRpcProvider(mainnetInfuraUrl);
 
-// b. Verify that the network's name is "mainnet" and the chain id that theis 1.
+// // b. Verify that the network's name is "mainnet" and the chain id that theis 1.
 
-// Hint: the value of chain id returned by Ethers JS is of type "BigInt". 
-// As the name suggests, that is a very a data type capable of holding very
-// large (integer) numbers. Remember to cast it to Number for a nicer display.
-// https://javascript.info/bigint 
+// // Hint: the value of chain id returned by Ethers JS is of type "BigInt". 
+// // As the name suggests, that is a very a data type capable of holding very
+// // large (integer) numbers. Remember to cast it to Number for a nicer display.
+// // https://javascript.info/bigint 
 
-// b1. Use the async/await pattern to do the job.
+// // b1. Use the async/await pattern to do the job.
 
 
 // This is an asynchronous anonymous self-executing function. It is a ugly
@@ -70,13 +72,14 @@ const mainnetProvider = new ethers.JsonRpcProvider(mainnetInfuraUrl);
 
 // However, the async function could also be named, and the result is:
 const network = async () => {
+    console.log(mainnetProvider)
     let net = await mainnetProvider.getNetwork();
     console.log('Async/Await!');
     console.log('Provider\'s network name: ', net.name);
     console.log('Provider\'s network chain id: ', Number(net.chainId));
 };
 
-// which you can then call:
+// // which you can then call:
 // network();
 
 // The second (less compact) notation has the advantage that we can invoke
@@ -199,63 +202,63 @@ const checkBlockTime = async (providerName = "mainnet", blocks2check = 3) => {
 
 // checkBlockTime("Goerli");
 
-// b. Bonus. The checkBlockTime function can be rewritten more efficiently 
-// using the Observer pattern offer by EtherS JS and listening to the 
-// "block" event. See:
-// https://docs.ethers.org/v5/api/providers/provider/#Provider--event-methods
+// // b. Bonus. The checkBlockTime function can be rewritten more efficiently 
+// // using the Observer pattern offer by EtherS JS and listening to the 
+// // "block" event. See:
+// // https://docs.ethers.org/v5/api/providers/provider/#Provider--event-methods
 
-// Do it! 
-// Hint: setInterval/clearInterval are replaced by on/off calls.
+// // Do it! 
+// // Hint: setInterval/clearInterval are replaced by on/off calls.
 
-const checkBlockTime2 = async (providerName = "mainnet", blocks2check = 3) => {
+// const checkBlockTime2 = async (providerName = "mainnet", blocks2check = 3) => {
 
-    // JS Ternary Operator.
-    let provider = providerName.toLowerCase() === "mainnet" ? 
-        mainnetProvider : goerliProvider;
+//     // JS Ternary Operator.
+//     let provider = providerName.toLowerCase() === "mainnet" ? 
+//         mainnetProvider : goerliProvider;
 
-    // Get initial block number and timestamp.
-    let d = Date.now();
-    // Keep track of how many blocks to check.
-    let blocksChecked = 0;
+//     // Get initial block number and timestamp.
+//     let d = Date.now();
+//     // Keep track of how many blocks to check.
+//     let blocksChecked = 0;
 
-    provider.on("block", newBlockNumber => {
+//     provider.on("block", newBlockNumber => {
         
-        // Check time.
-        let d2 = Date.now();
-        let timeDiff = d2 - d;
-        console.log(providerName, "New Block num:", newBlockNumber);
-        console.log(providerName, "It took: ", timeDiff);
+//         // Check time.
+//         let d2 = Date.now();
+//         let timeDiff = d2 - d;
+//         console.log(providerName, "New Block num:", newBlockNumber);
+//         console.log(providerName, "It took: ", timeDiff);
         
-        // Update loop variables.
-        d = d2;
+//         // Update loop variables.
+//         d = d2;
 
-        if (++blocksChecked >= blocks2check) {
-            provider.off("block");
-        }
-    })
-};
+//         if (++blocksChecked >= blocks2check) {
+//             provider.off("block");
+//         }
+//     })
+// };
 
-// checkBlockTime2("mainnet");
+// // checkBlockTime2("mainnet");
 
-// return;
+// // return;
 
-// c. Now that you know the answer, you can check the 
-// "Ethereum Average Block Time Chart": https://etherscan.io/chart/blocktime
+// // c. Now that you know the answer, you can check the 
+// // "Ethereum Average Block Time Chart": https://etherscan.io/chart/blocktime
 
 
-// Exercise 4. Block info.
-//////////////////////////
+// // Exercise 4. Block info.
+// //////////////////////////
 
-// a. Look up the last block in Mainnet and print it to console.
-// Hint: first get the last block number, and then use .getBlock(blockNumber).
+// // a. Look up the last block in Mainnet and print it to console.
+// // Hint: first get the last block number, and then use .getBlock(blockNumber).
 
-// b. How many transactions does the block contains?
+// // b. How many transactions does the block contains?
 
-// c. Pick a transaction and examine its receipt.
-// Hint: use getTransactionReceipt().
+// // c. Pick a transaction and examine its receipt.
+// // Hint: use getTransactionReceipt().
 
-// d. Transactions can be prefetched, so that you save one blockchain call.
-// Hint: pass `true` as second parameter to .getBlock(blockNumber, true).
+// // d. Transactions can be prefetched, so that you save one blockchain call.
+// // Hint: pass `true` as second parameter to .getBlock(blockNumber, true).
 
 const blockInfo = async () => {
     let blockNumber = await mainnetProvider.getBlockNumber();
@@ -295,26 +298,26 @@ const ens = async () => {
 // ens();
 
 
-// Exercise 6. Get ETH balance.
-///////////////////////////////
+// // Exercise 6. Get ETH balance.
+// ///////////////////////////////
 
-// a. Ask for the Ether balance of "unima.eth". 
-// Hint: remember to be on the Goerli net.
+// // a. Ask for the Ether balance of "unima.eth". 
+// // Hint: remember to be on the Goerli net.
 
-// b. Format the balance nicely with the formatEther utility.
+// // b. Format the balance nicely with the formatEther utility.
 
-// c. Compare the ETH balance for the ENS name "unima.eth" and the balance
-// its address (after resolving it). Are they the same?
+// // c. Compare the ETH balance for the ENS name "unima.eth" and the balance
+// // its address (after resolving it). Are they the same?
 
-// d. Bonus. What is the balance for the address of Vitalik Buterin, the 
-// creator of Ethereum? 
-// Hint: try vitalik.eth
+// // d. Bonus. What is the balance for the address of Vitalik Buterin, the 
+// // creator of Ethereum? 
+// // Hint: try vitalik.eth
 
 const balance = async (ensName = "unima.eth") => {
 
     // Get the balance for "unima.eth".
     let bal = await goerliProvider.getBalance(ensName);
-    // console.log(bal);
+    console.log(bal);
 
     // Nicely formatted.
     console.log(ensName, "has", ethers.formatEther(bal), "ETH");
@@ -360,10 +363,10 @@ const linkABI = require('../link_abi.json');
 const link = async () => {
     const contract = new ethers.Contract(linkAddress, linkABI, goerliProvider);
     const linkBalance = await contract.balanceOf("unima.eth");
-    console.log(ethers.formatEther(linkBalance));
+    console.log("LINK balance is", ethers.formatEther(linkBalance));
 };
 
 
-// link();
+link();
 
 

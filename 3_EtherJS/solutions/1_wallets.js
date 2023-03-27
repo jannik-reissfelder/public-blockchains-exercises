@@ -127,26 +127,26 @@ exercise = 2;
 // Hint: you can copy .env_sample, modify its content and save it as .env.
  
 // See if it worked.
-console.log(process.env);
-
+// console.log(process.env);
+// console.log("Exercise 2 complete")
 // exit();
 
 // Exercise 3. Check the content of the .env file.
 //////////////////////////////////////////////////
 
 // In JavaScript variables are loosely typed.
-exercise = '3a';
+// exercise = '3a';
 
-// Let's learn a bit of JavaScript syntax. 
+// // Let's learn a bit of JavaScript syntax. 
 
-// a. Check that the variable METAMASK_ACCOUNT_1 is not empty. Write an 
-// if statement that print a warning message if empty.
-console.log(process.env.METAMASK_ACCOUNT_1);
+// // a. Check that the variable METAMASK_ACCOUNT_1 is not empty. Write an 
+// // if statement that print a warning message if empty.
+// console.log(process.env.METAMASK_ADDRESS);
 
-let privateKey = process.env.METAMASK_PRIVATE_KEY;
-if (privateKey === "") {
-    console.log('Missing private key, fix your .env file');
-}
+// let privateKey = process.env.METAMASK_PRIVATE_KEY;
+// if (privateKey === "") {
+//     console.log('Missing private key, fix your .env file');
+// }
 
 // exit();
 
@@ -158,8 +158,7 @@ exercise = '3b';
 let variablesToCheck = [
     "INFURA_KEY", "INFURA_GOERLI", "INFURA_MAINNET",
     "ALCHEMY_KEY", "ALCHEMY_GOERLI", "ALCHEMY_MAINNET",
-    "METAMASK_1_ADDRESS", "METAMASK_1_PRIVATE_KEY",
-    "METAMASK_2_ADDRESS", "METAMASK_2_PRIVATE_KEY",
+    "METAMASK_ADDRESS", "METAMASK_PRIVATE_KEY",
     "ETHERSCAN_KEY"
 ];
 
@@ -183,76 +182,76 @@ variablesToCheck.forEach(v => {
     }
 });
 
-// Solution 2. For-loop.
-for (let index = 0; index < variablesToCheck.length; index++) {
-    const v = variablesToCheck[index];
-    if (!process.env[v]) {
-        console.log(process.env[v])
-        console.log(`Missing ${v}, fix your .env file`);
-    }
-}
+// // Solution 2. For-loop.
+// for (let index = 0; index < variablesToCheck.length; index++) {
+//     const v = variablesToCheck[index];
+//     if (!process.env[v]) {
+//         console.log(process.env[v])
+//         console.log(`Missing ${v}, fix your .env file`);
+//     }
+// }
 
-// Checkpoint. Is !process.env[v] equivalent to process.env[v] === "" ?
+// // Checkpoint. Is !process.env[v] equivalent to process.env[v] === "" ?
 
-// exit();
+// // exit();
 
 
 // Exercise 4. Create a Random Wallet.
 //////////////////////////////////////
-exercise = '4a';
+// exercise = '4a';
 
-const ethers = require("ethers");
+// const ethers = require("ethers");
 
 // a. Create a random wallet and print the address, the private key,
 // and the mnenomic phrase.
 
-const wallet = ethers.Wallet.createRandom();
+// const wallet = ethers.Wallet.createRandom();
 
-console.log();
-console.log("Address:", wallet.address);
-console.log("Private key:", wallet.privateKey);
-console.log("Mnemonic:", wallet.mnemonic.phrase);
-console.log();
+// console.log();
+// console.log("Address:", wallet.address);
+// console.log("Private key:", wallet.privateKey);
+// console.log("Mnemonic:", wallet.mnemonic.phrase);
+// console.log();
+
+// // exit();
+
+// // b. Bonus. Print the derivation path of the wallet and check that it is
+// // equal to `baseDevPath`. 
+
+// exercise = '4b';
+
+// let baseDevPath = "m/44'/60'/0'/0/";
+
+// // Wait is the derication path? 
+// // Basically, the mnemonic alone isn't enough to determine an address
+// // and you need this extra bit of information. You may learn more here:
+// // https://www.youtube.com/watch?v=tPCN3nDVzZI
+// // Also:
+// // https://vault12.com/securemycrypto/crypto-security-basics/what-is-bip39/
+
+
+// console.log("Derivation path:", wallet.path);
+
+// // exit();
+
+// // Exercise 5. Bonus. Create a Hierarchical Deterministic Wallet.
+// /////////////////////////////////////////////////////////////////
+// console.log();
+// exercise = 5;
+
+// // From the same wallet, you can derive a deterministic sequence of addresses.
+// // First, pick a mnemonic, then create a hierarchical deterministic wallet, 
+// // finally print the first 10 addresses and private keys generated.
+// // Hint: You need to append an index to the derivation path.
+
+// let mnemonic = wallet.mnemonic.phrase;
+
+// let path, myWallet;
+// for (let i = 0; i < 10; i++) {
+//   path = `${baseDevPath}${i}`;
+//   myWallet = ethers.HDNodeWallet.fromPhrase(mnemonic, path);
+//   console.log("Address", i, myWallet.address);
+//   console.log("Private key", i, myWallet.privateKey);
+// }
 
 // exit();
-
-// b. Bonus. Print the derivation path of the wallet and check that it is
-// equal to `baseDevPath`. 
-
-exercise = '4b';
-
-let baseDevPath = "m/44'/60'/0'/0/";
-
-// Wait is the derication path? 
-// Basically, the mnemonic alone isn't enough to determine an address
-// and you need this extra bit of information. You may learn more here:
-// https://www.youtube.com/watch?v=tPCN3nDVzZI
-// Also:
-// https://vault12.com/securemycrypto/crypto-security-basics/what-is-bip39/
-
-
-console.log("Derivation path:", wallet.path);
-
-// exit();
-
-// Exercise 5. Bonus. Create a Hierarchical Deterministic Wallet.
-/////////////////////////////////////////////////////////////////
-console.log();
-exercise = 5;
-
-// From the same wallet, you can derive a deterministic sequence of addresses.
-// First, pick a mnemonic, then create a hierarchical deterministic wallet, 
-// finally print the first 10 addresses and private keys generated.
-// Hint: You need to append an index to the derivation path.
-
-let mnemonic = wallet.mnemonic.phrase;
-
-let path, myWallet;
-for (let i = 0; i < 10; i++) {
-  path = `${baseDevPath}${i}`;
-  myWallet = ethers.HDNodeWallet.fromPhrase(mnemonic, path);
-  console.log("Address", i, myWallet.address);
-  console.log("Private key", i, myWallet.privateKey);
-}
-
-exit();
