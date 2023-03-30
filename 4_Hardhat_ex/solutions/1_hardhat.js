@@ -21,7 +21,7 @@ const ethers = require("ethers");
 // Hint: you will find the info printed to console after you start the hardhat
 // blockchain.
 
-const hardhatUrl = "http://127.0.0.1:8545";
+const hardhatUrl = "http://127.0.0.1:8545"; // the one from slides
 const hardhatProvider = new ethers.JsonRpcProvider(hardhatUrl);
 
 // Exercise 2. Let's query the provider.
@@ -61,7 +61,7 @@ const getNonce = async() => {
     console.log('Your nonce is ' + nonce);
 };
 
-// getNonce();
+getNonce();
 
 
 // Exercise 4. Check gas.
@@ -80,7 +80,7 @@ const checkBalance = async () => {
     console.log('My balance is ' + ethers.formatEther(balance) + ' ETH.');
 };
 
-// checkBalance();
+checkBalance();
 
 // Exercise 5. Send a transaction.
 //////////////////////////////////
