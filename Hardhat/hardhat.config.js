@@ -16,7 +16,7 @@ const MM_PRIVATE_KEY = process.env.METAMASK_PRIVATE_KEY;
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.17",
-  defaultNetwork: "unima1",
+  defaultNetwork: "localhost",
   etherscan: {
     apiKey: process.env.ETHERSCAN_KEY
   },

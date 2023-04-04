@@ -8,16 +8,16 @@ const hre = require("hardhat");
 
 async function main() {
 
+  const ethAmount = "1";
+  const lockedAmount = hre.ethers.utils.parseEther(ethAmount);
 
-  const lockedAmount = hre.ethers.utils.parseEther("0.01");
-
-  const Lock = await hre.ethers.getContractFactory("Lock2");
+  const Lock = await hre.ethers.getContractFactory("Lock4");
   const lock = await Lock.deploy({ value: lockedAmount });
 
   await lock.deployed();
 
   console.log(
-    `Lock with 0.01 ETH and deployed to ${lock.address}`
+    `Lock with ${ethAmount} ETH and deployed to ${lock.address}`
   );
 }
 

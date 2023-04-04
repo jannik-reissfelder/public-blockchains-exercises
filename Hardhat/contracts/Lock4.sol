@@ -2,7 +2,7 @@
 pragma solidity ^0.8.17;
 
 // Uncomment this line to use console.log
-// import "hardhat/console.sol";
+import "hardhat/console.sol";
 
 contract Lock4 {
     
@@ -37,7 +37,7 @@ contract Lock4 {
 
     function withdraw() public {
 
-        // console.log("LOG>", owners[msg.sender]);
+        console.log("LOG>", owners[msg.sender]);
 
         emit WithdrawalAttempt(address(this).balance, block.timestamp, msg.sender);
 
