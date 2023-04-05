@@ -8,7 +8,7 @@ const hre = require("hardhat");
 
 async function main() {
 
-  const ethAmount = "1";
+  const ethAmount = "10";
   const lockedAmount = hre.ethers.utils.parseEther(ethAmount);
 
   const Lock = await hre.ethers.getContractFactory("Lock4");

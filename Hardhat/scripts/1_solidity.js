@@ -252,7 +252,7 @@ async function readVar() {
     console.log(cName + " owner:", owner);
   }
   
-  constructor();
+  // constructor();
   
   // Exercise 4. Events (and reverts).
   ////////////////////////////////////
@@ -297,7 +297,7 @@ async function readVar() {
     // Getting the contract.
     const cName = "Lock3";
     // Change the contract address to your deployed contract address.
-    const cAddress = "YOUR_CONTRACT_ADDRESS";
+    const cAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
   
     const [ lock ] = await getContractAndSigner(cName, cAddress);
   
@@ -341,10 +341,11 @@ async function readVar() {
     // Getting the contract.
     const cName = "Lock3";
     // Change the contract address to your deployed contract address.
-    const cAddress = "YOUR_CONTRACT_ADDRESS";
+    const cAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
   
     const [ lock ] = await getContractAndSigner(cName, cAddress);
-  
+    let b1 = await hre.ethers.provider.getBalance(cAddress)
+    console.log("Contract balance is:", "**", b1,"**")
     let fromBlock = 0;
     let toBlock = hre.ethers.provider.getBlock().number;
     const events = await lock.queryFilter("*", fromBlock, toBlock);
@@ -400,7 +401,7 @@ async function readVar() {
    // Getting the contract.
    const cName = "Lock4";
    // Change the contract address to your deployed contract address.
-   const cAddress = "YOUR_CONTRACT_ADDRESS";
+   const cAddress = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
   
    // Get five contracts for 5 signers.
    const [ lock0, signer0 ] = await getContractAndSigner(cName, cAddress, 0);
@@ -465,5 +466,5 @@ async function readVar() {
                     numOwners + " owners now");
   };
   
-  // mappings();
+  mappings();
   
