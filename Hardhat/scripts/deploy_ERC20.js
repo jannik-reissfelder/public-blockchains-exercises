@@ -7,20 +7,19 @@
 const hre = require("hardhat");
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  console.log("entrance")
+  // const ethAmount = "1"; // note this must match the value I have in my metamask account for UNI-Ma network
+  const lockedAmount = hre.ethers.utils.parseEther("1");
+  console.log("Working")
 
-  const lockedAmount = hre.ethers.utils.parseEther("0.001");
-
-  const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
-
+  const Lock = await hre.ethers.getContractFactory("MyERC20");
+  console.log("Failed after")
+  const lock = await Lock.deploy({ value: lockedAmount });
+  console.log("Fail here")
   await lock.deployed();
 
   console.log(
-    `Lock with ${ethers.utils.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
+    `Lock with ${ethAmount} ETH and deployed to ${lock.address}`
   );
 }
 
