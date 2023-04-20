@@ -4,7 +4,7 @@ pragma solidity ^0.8.9;
 // Uncomment this line to use console.log
 import "hardhat/console.sol";
 
-contract Lock {
+contract Lock_2_old {
     uint256 public immutable unlockTime;
     address payable public owner;
     string public globalVar = "This variable was proudly created by me and can be changed";

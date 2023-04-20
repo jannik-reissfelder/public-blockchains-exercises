@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.17;
-
+import "hardhat/console.sol";
 interface IERC20 {
     // ERC-20 Methods:
     function totalSupply() external view returns (uint256);
@@ -16,12 +16,11 @@ interface IERC20 {
 }
 
 
-contract MyERC20 is IERC20 {
+contract MyERC20_old is IERC20 {
     // Implementation of interface...
 
-    address public owner;
-    string public name;
-    string public symbol;
+    string public constant name = "MyERC20";
+    string public constant symbol = "ME20";
     uint8 public constant decimals = 18;
 
     mapping(address => uint256) balances;
@@ -29,11 +28,8 @@ contract MyERC20 is IERC20 {
 
     uint256 private _totalSupply;
 
-    constructor(string memory _name, string memory _symbol, uint256 _total) {
-        name = _name;
-        symbol = _symbol;
-        _totalSupply = _total;
-        owner = msg.sender;
+    constructor(uint256 total) {
+        _totalSupply = total;
         balances[msg.sender] = _totalSupply;
     }
 
@@ -47,8 +43,8 @@ contract MyERC20 is IERC20 {
 
     function transfer(address receiver, uint256 numTokens) public returns (bool) {
         // Check balance.
-        require(numTokens <= balances[msg.sender], "Not enough tokens");
-        
+        require(numTokens <= balances[msg.sender]);
+        console.log("failing");
         // Transfer.
         balances[msg.sender] -= numTokens;
         balances[receiver] += numTokens;
@@ -68,27 +64,27 @@ contract MyERC20 is IERC20 {
         return true;
     }
 
-    function allowance(address from, address delegate) public view returns (uint) {
-        return allowed[from][delegate];
+    function allowance(address owner, address delegate) public view returns (uint) {
+        return allowed[owner][delegate];
     }
 
-    function transferFrom(address from, address to, uint256 numTokens) public returns (bool) {
-        require(numTokens <= balances[from], "Not enough tokens in from balance");
-        require(numTokens <= allowed[from][msg.sender], "Allowance not enough");
+    function transferFrom(address owner, address buyer, uint256 numTokens) public returns (bool) {
+        require(numTokens <= balances[owner]);
+        require(numTokens <= allowed[owner][msg.sender]);
 
-        balances[from] -= numTokens;
-        allowed[from][msg.sender] -= numTokens;
-        balances[to] += numTokens;
+        balances[owner] -= numTokens;
+        allowed[owner][msg.sender] -= numTokens;
+        balances[buyer] += numTokens;
 
         // Emit event.
-        emit Transfer(from, to, numTokens);
+        emit Transfer(owner, buyer, numTokens);
         
         return true;
     }
 
+    // 2. Mint.
     function mint (address recipient, uint256 numTokens) external {
-        require(msg.sender == owner, "Only owner can mint");
-        require(recipient != address(0), "Mint to the zero address");
+        require(recipient != address(0), "ERC20: mint to the zero address");
 
         _totalSupply += numTokens;
 
